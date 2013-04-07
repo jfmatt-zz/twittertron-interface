@@ -1,0 +1,9 @@
+Order allow,deny
+Allow from all
+
+# Force Django to handle all requests through FCGI
+Options +ExecCGI
+AddHandler fastcgi-script .fcgi
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ django.fcgi/$1 [QSA,L]

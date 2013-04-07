@@ -1,0 +1,60 @@
+{% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+#mapwrapper {
+  float: left;
+	width: 640px;
+	height: 480px;
+}
+#heatmapArea {
+  width: 100%;
+  height: 100%;
+}
+#interface {
+  float: left;
+  padding: 1em;
+}
+#hashcloud a {
+  text-decoration: none;
+}
+#status {
+  float: left;
+  clear: both;
+  display: block;
+}
+</style>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}tweets/js/jquery.tagcloud.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}tweets/js/heatmap.js"></script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}tweets/js/heatmap-gmaps.js"></script>
+<script>
+var query = {{ query|safe }};
+var tweetData = {{ data|safe }};
+</script>
+<script type="text/javascript" src="{{ STATIC_PREFIX }}tweets/js/script.js"></script>
+</head>
+<body>
+  <div id="mapwrapper">
+  	<div id="heatmapArea"></div>
+  </div>
+  <div id="interface">
+    <form action="#" method="GET" id="theform">
+      <div id="hashcloud">
+        {% for hash in hashes %}
+          <a href="" rel="{{ hash.count }}" id="hashcloud_{{ hash.hashtag }}">{{ hash.hashtag }}</a>
+        {% endfor %}
+      </div>
+      <label for="hashtags">Hashtags:</label> <input type="text" id="hashinput" name="hashtags"></input>
+      <br>
+      <input type="button" id="formsubmit" value="Filter tweets"></input>
+    </form>
+  </div>
+  <div id="status"></div>
+</body>
+</html>

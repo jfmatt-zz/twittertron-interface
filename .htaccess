@@ -1,0 +1,5 @@
+# Force everything to the public directory, where django will pick it up
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ public/$1 [QSA,L]
+
